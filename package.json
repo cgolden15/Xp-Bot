@@ -1,0 +1,26 @@
+{
+  "name": "XP bot",
+  "version": "1.0.0",
+  "description": "some bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Golden!!#8008",
+  "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "canvacord": "^5.0.4",
+    "chalk": "^5.0.0",
+    "discord.js": "^12.2.0",
+    "express": "^4.17.2",
+    "hastebin-gen": "^2.0.5",
+    "jumble-words": "^1.0.1",
+    "node-fetch": "^2.6.0",
+    "quick.db": "^7.1.1",
+    "snowflake-api": "^3.0.3",
+    "twemoji-parser": "^13.0.0"
+  }
+}
