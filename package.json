@@ -18,7 +18,7 @@
   "homepage": "https://github.com/cgolden15/Xp-Bot#readme",
   "dependencies": {
     "canvacord": "^5.2.3",
-    "discord.js": "^13.6.0",
+    "discord.js": "^12.2.0",
     "express": "^4.17.2",
     "fs": "0.0.1-security",
     "mongoose": "^6.2.1",
