@@ -45,7 +45,7 @@ fs.readdir(`./commands/`, (error, files) => {
 
 // Events
 client.once("ready", async () => {
-  console.log(`Ready! Logged in as ${client.user}`);
+  console.log(`Ready! Logged in as ${client.user.tag}`);
   client.user.setActivity(`your disgusting messages`, { type: "WATCHING" })
   
   //Connect to mongoDB
