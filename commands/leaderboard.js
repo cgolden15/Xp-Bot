@@ -63,5 +63,5 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
   name: "leaderboard",
-  aliases: "lb"
+  aliases: ['lb']
 };

@@ -7,12 +7,12 @@ const talkedRecently = new Set();
 const mongoose = require("mongoose")
 const userSchema = require('./schemas/userSchema')
 
-
+client.aliases = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.cooldown = new Discord.Collection();
 client.config = {
   TOKEN: `${process.env.discordToken}`,
-  prefix: "!!",
+  prefix: "!-",
   cooldown: 5000
 };
 
@@ -25,20 +25,29 @@ let listener = app.listen(process.env.PORT, () => {
 });
 
 // Load Commands
-fs.readdir("./commands/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(f => {
-    if (!f.endsWith(".js")) return;
-    let command = require(`./commands/${f}`);
-    client.commands.set(command.help.name, command);
-  });
+fs.readdir(`./commands/`, (error, files) => {
+    if (error) {return console.log("Error while trying to get the commmands.");};
+    files.forEach(file => {
+        const command = require(`./commands/${file}`);
+        const commandName = file.split(".")[0];
+
+        client.commands.set(commandName, command)
+        console.log(`Loaded command: ${commandName}`)
+        if (command.aliases) {
+            command.aliases.forEach(alias => {
+                client.aliases.set(alias, command);
+                console.log(`Set command alias: ${command} -${alias}`)
+            });
+        };
+    });
 });
+
 
 // Events
 client.once("ready", async () => {
-  console.log("Ready!");
+  console.log(`Ready! Logged in as ${client.user}`);
   client.user.setActivity(`your disgusting messages`, { type: "WATCHING" })
-
+  
   //Connect to mongoDB
   await mongoose.connect(process.env.mongoUri, {
     keepAlive: true,
@@ -49,7 +58,6 @@ client.once("ready", async () => {
   }).catch((err) => {
     console.log(err)
   })
-
 });
 
 client.on("error", console.error);
@@ -68,7 +76,7 @@ client.on("message", async (message) => {
   if (!message.content.startsWith(client.config.prefix)) return;
   let args = message.content.slice(client.config.prefix.length).trim().split(" ");
   let command = args.shift().toLowerCase();
-  let commandFile = client.commands.get(command);
+  let commandFile = client.commands.get(command) || client.aliases.get(command);
   if (!commandFile) return;
   commandFile.run(client, message, args);
   //Cooldown handler
@@ -106,7 +114,7 @@ async function xp(message) {
         new: true,
       })
 
-    client.channels.cache.get('935731982388846662').send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` })
+    message.channel.send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` })
   }
 }
 client.login(process.env.discordToken);

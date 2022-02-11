@@ -3,11 +3,13 @@ const canvacord = require("canvacord");
 const userSchema = require('../schemas/userSchema')
 
 module.exports.run = async (client, message, args) => {
-  const result = await userSchema.findOne({
-    userId: message.author.id
-  });
-
   let user = message.mentions.users.first() || client.users.cache.get(args[0]) || message.author;
+  let result = await userSchema.find({ }).sort({ xp: -1 });
+  let rank = result.map(result => result.userId).indexOf(user.id) + 1 || "N/A";
+  result = await userSchema.findOne({
+    userId: user.id,
+  })
+
   let level = result.level || 1
   let exp = result.xp || 0
   let neededXP = level*200
@@ -17,6 +19,7 @@ module.exports.run = async (client, message, args) => {
     .setUsername(user.username)
     .setDiscriminator(user.discriminator)
     .setLevel(level)
+    .setRank(rank)
     .setCurrentXP(exp)
     .setRequiredXP(neededXP)
     .setStatus(user.presence.status)

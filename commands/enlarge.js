@@ -4,7 +4,7 @@ const { parse } = require("twemoji-parser");
 module.exports.run = async (client, message, args) => {
     
     const emoji = args[0];
-    if (!emoji) return message.channel.send("No emoji provided!");
+    if (!emoji) return message.channel.send({ content: "No emoji provided!" });
 
     let custom = Discord.Util.parseEmoji(emoji);
     const embed = new Discord.MessageEmbed()

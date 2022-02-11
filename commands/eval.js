@@ -2,7 +2,8 @@ var format1 = "```js"
 var format2 = "```"
 
 module.exports.run = async (client, message, args) => {
-  if (message.author.id !== "317283391982534666") {
+  const devIds = ["317283391982534666", "740000222297718874"]
+  if (!devIds.includes(message.author.id)) {
     return message.channel.send({
       embed: {
         color: 0x4c32a8,
