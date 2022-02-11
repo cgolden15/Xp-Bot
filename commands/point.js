@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args) => {
                 { name: `Originally:`, value: `${originalPoints}`, inline: true},
                 { name: `Now:`, value: `${newPoints}`, inline: true}
             )
-            .setFooter('Robloxian Adventures Training Academy')
+            .setFooter('[RA] Training Academy')
             .setTimestamp();
         
          message.channel.send(embed);
@@ -33,8 +33,10 @@ module.exports.run = async (client, message, args) => {
 
         const embed = new MessageEmbed()
             .setColor("RANDOM")
-            .setTitle("League Points:")
+            .setTitle("League Points")
             .setDescription(`${user.tag} has ${points} League Points.`)
+            .setFooter('[RA] Training Academy')
+            .setTimestamp()
         message.channel.send(embed);
     }
 
