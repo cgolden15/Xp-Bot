@@ -1,47 +1,76 @@
 const userSchema = require('../schemas/userSchema')
+const { MessageEmbed } = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
-    let user = client.users.cache.get(args[1])
-    
-    if(args[2]) { // if theres a point value provided
-        let points = args[2]
-    
-        // set to 0 points if user doesnt have any
+  if (!message.member.roles.cache.some(r => ["League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host"].includes(r.name)) && !message.member.hasPermission("ADMINISTRATOR")) {
+    return message.delete(({ timeout: 3000 }));
+  }
+  let user = client.users.cache.get(args[1]) || message.author
 
-        let originalPoints = a//whatever users points were before they get updated
+  if (args[1]) { // if theres a point value provided
+    let changepoints = args[1]
 
-        // add/remove points
+    // set to 0 points if user doesnt have any
 
-        let newPoints = b//users points after being updated
+    let originalPoints = await userSchema.findOne({
+      userId: user.id,
+    }); //whatever users points were before they get updated
 
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTitle("League Points edited!")
-            .setDescription(`${user.tag}'s league points has been updated!'`)
-            .addField(
-                { name: `Originally:`, value: `${originalPoints}`, inline: true},
-                { name: `Now:`, value: `${newPoints}`, inline: true}
-            )
-            .setFooter('[RA] Training Academy')
-            .setTimestamp();
-        
-         message.channel.send(embed);
+    // add/remove points
 
-    } else {
+    let newPoints = await userSchema.findOneAndUpdate({
+      userId: user.id,
+    }, {
+        $inc: {
+          points: changepoints,
+        },
+      }, {
+        upsert: true,
+        new: true,
+      });  //users points after being updated
 
-        let points = c// get current points
+    const embed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setTitle("League Points edited!")
+      .setDescription(`${user.tag}'s league points has been updated!'`)
+      .addFields(
+        {
+          name: `Originally`,
+          value: originalPoints.points,
+        }, {
+          name: `Now:`,
+          value: newPoints.points,
+        },
+      )
+      .setFooter('[RA] Training Academy')
+      .setTimestamp();
 
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTitle("League Points")
-            .setDescription(`${user.tag} has ${points} League Points.`)
-            .setFooter('[RA] Training Academy')
-            .setTimestamp()
-        message.channel.send(embed);
-    }
+    message.channel.send(embed);
+
+  } else {
+
+    let pointsnum = await userSchema.findOne({
+      userId: user.id,
+    }); // get current points
+
+    if (!pointsnum) {
+      await new userSchema({
+        userId: user.id,
+      }).save()
+      pointsnum = 0
+    };
+
+    const embed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setTitle("League Points")
+      .setDescription(`${user.tag} has ${pointsnum.points} League Points.`)
+      .setFooter('[RA] Training Academy')
+      .setTimestamp()
+    message.channel.send(embed);
+  }
 
 };
 
-module.exports = {
+module.exports.help = {
   name: "points"
 };
