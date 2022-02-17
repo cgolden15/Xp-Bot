@@ -58,7 +58,7 @@ module.exports.run = async (client, message, args) => {
     embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level}\n**XP** - ${d.xp} / ${d.xpreq}`);
   });
   embed.setFooter(`Your Position: ${myrank}`);
-  return message.channel.send(embed);
+  return message.channel.send({ embeds: [embed] });
 };
 
 module.exports.help = {
