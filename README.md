@@ -3,4 +3,4 @@
 yeah. oh yeah.
 
 ## Credits:
-Created by: thejanator(Golden!!#8008) & MuhhMan22(MuhhMan22#0420)
+Created by: thejanator(Golden!!#8008) & MuhhMan22(MuhhMan22#6969)
