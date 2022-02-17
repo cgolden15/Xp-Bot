@@ -14,7 +14,6 @@ module.exports.run = async (client, message, args) => {
   let exp = result.xp || 0
   let neededXP = level*200
   let background = "https://www.worldatlas.com/r/w768/upload/1c/2b/66/shutterstock-149198729-2.jpg"
-
   const card = new canvacord.Rank()
     .setUsername(user.username)
     .setDiscriminator(user.discriminator)
@@ -22,13 +21,13 @@ module.exports.run = async (client, message, args) => {
     .setRank(rank)
     .setCurrentXP(exp)
     .setRequiredXP(neededXP)
-    .setStatus(user.presence.status)
     .setBackground("IMAGE", background)
     .setAvatar(user.displayAvatarURL({ format: "png", size: 1024 }));
 
   const img = await card.build();
 
-  return message.channel.send(new MessageAttachment(img, "rank.png"));
+  const attachment = new MessageAttachment(img, 'rank.png')
+  return message.channel.send({ files: [new MessageAttachment(img, 'rank.png')] });
 };
 
 module.exports.help = {
