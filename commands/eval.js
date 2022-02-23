@@ -1,8 +1,9 @@
+const { MessageEmbed } = require('discord.js')
 var format1 = "```js"
 var format2 = "```"
 
 module.exports.run = async (client, message, args) => {
-  const devIds = ["317283391982534666", "740000222297718874"]
+  const devIds = ["317283391982534666", "74000022229771887"]
   if (!devIds.includes(message.author.id)) {
     return message.channel.send({
       embed: {

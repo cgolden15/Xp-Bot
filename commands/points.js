@@ -2,10 +2,10 @@ const userSchema = require('../schemas/userSchema')
 const { MessageEmbed } = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
-  if (!message.member.roles.cache.some(r => ["League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host"].includes(r.name)) && !message.member.hasPermission("ADMINISTRATOR")) {
+  if (!message.member.roles.cache.some(r => ["League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host", "Jr. Developer", "CEO"].includes(r.name)) && !message.member.hasPermission("ADMINISTRATOR")) {
     return message.delete(({ timeout: 3000 }));
   }
-  let user = client.users.cache.get(args[1]) || message.author
+  let user = client.users.cache.get(args[0]) || message.author
 
   if (args[1]) { // if theres a point value provided
     let changepoints = args[1]
@@ -45,7 +45,7 @@ module.exports.run = async (client, message, args) => {
       .setFooter('[RA] Training Academy')
       .setTimestamp();
 
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
 
   } else {
 
@@ -66,7 +66,7 @@ module.exports.run = async (client, message, args) => {
       .setDescription(`${user.tag} has ${pointsnum.points} League Points.`)
       .setFooter('[RA] Training Academy')
       .setTimestamp()
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
   }
 
 };
