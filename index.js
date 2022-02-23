@@ -19,7 +19,7 @@ client.commands = new Discord.Collection();
 client.cooldown = new Discord.Collection();
 client.config = {
   TOKEN: `${process.env.discordToken}`,
-  prefix: "!-",
+  prefix: "!!",
   cooldown: 5000
 };
 
@@ -147,7 +147,7 @@ async function xp(message) {
     } else {
       message.channel.send({ content: `${message.author.tag} has ranked up to level ${newLevel.level}!!` })
     }
-    
+   
   }
 }
 
@@ -197,3 +197,4 @@ async function xp(message) {
   }
 }
 */
+
