@@ -16,6 +16,14 @@ const schema = new mongoose.Schema({
     type: Number,
     default: 1
   },
+  points: {
+    type: Number,
+    default: 0,
+  },
+  mention: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 module.exports = mongoose.model('userSchema', schema)

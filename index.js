@@ -1,5 +1,3 @@
-const express = require('express');
-const app = express();
 const Discord = require("discord.js");
 const fs = require("fs");
 const talkedRecently = new Set();
@@ -21,19 +19,9 @@ client.commands = new Discord.Collection();
 client.cooldown = new Discord.Collection();
 client.config = {
   TOKEN: `${process.env.discordToken}`,
-  prefix: "!-",
+  prefix: "!!",
   cooldown: 5000
 };
-
-//uptime page
-app.get('/', (request, response) => {
-  response.sendStatus(200);
-});
-
-let listener = app.listen(process.env.PORT, () => {
-  console.log('Your app is currently listening on port: ' + listener.address().port);
-});
-
 
 // Load Commands
 fs.readdir(`./commands/`, (error, files) => {
@@ -44,12 +32,19 @@ fs.readdir(`./commands/`, (error, files) => {
 
     client.commands.set(commandName, command)
     console.log(`Loaded command: ${commandName}`)
+
     if (command.aliases) {
-      command.aliases.forEach(alias => {
-        client.aliases.set(alias, command);
-        console.log(`Set command alias: ${command} -${alias}`)
-      });
-    };
+    command.help.aliases.forEach(alias => {
+      client.aliases.set(alias, commandName)
+      console.log(`Set command alias: ${command} -> ${alias}`)
+    })
+    }
+    // if (command.aliases) {
+    //   command.aliases.forEach(alias => {
+    //     client.aliases.set(alias, command);
+    //     console.log(`Set command alias: ${command} -${alias}`)
+    //   });
+    // };
   });
 });
 
@@ -146,8 +141,13 @@ async function xp(message) {
         upsert: true,
         new: true,
       })
-
-    message.channel.send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` })
+    
+    if (result.mention === true) {
+      message.channel.send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` }) //Sends to testing server, not RA
+    } else {
+      message.channel.send({ content: `${message.author.tag} has ranked up to level ${newLevel.level}!!` })
+    }
+   
   }
 }
 
@@ -197,3 +197,4 @@ async function xp(message) {
   }
 }
 */
+
