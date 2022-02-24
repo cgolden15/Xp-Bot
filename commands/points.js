@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
 
-  let user = client.users.cache.get(args[0]) || message.author
+  let user = client.users.cache.get(args[0]) || message.mentions.users.first() || message.author
 
   if (args[1]) { // if theres a point value provided
     if (!message.member.roles.cache.some(r => ["RA Executives", "League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host", "Jr. Developer", "CEO"].includes(r.name))) {
