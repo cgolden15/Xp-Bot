@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args) => {
       upsert: true,
     });
 
-  return message.channel.send({ content: 'Multiplier set.' })
+  return message.reply({ content: 'Multiplier set.' })
 }
 module.exports.help = {
   name: "multiplier"
