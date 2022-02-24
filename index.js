@@ -164,37 +164,3 @@ check()
 
 client.login(process.env.discordToken);
 
-/*
-async function xp(message) {
-  const result = await userSchema.findOneAndUpdate({
-    userId: message.author.id,
-  }, {
-      userName: message.author.tag,
-      $inc: {
-        xp: 5
-      },
-    }, {
-      upsert: true,
-      new: true,
-    });
-
-  let xp = result.xp;
-  let lvl = result.level;
-
-  if (xp >= lvl * 200) {
-    let newLevel = await userSchema.findOneAndUpdate({
-      userId: message.author.id,
-    }, {
-        $inc: {
-          level: 1
-        },
-      }, {
-        upsert: true,
-        new: true,
-      })
-
-    message.channel.send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` })
-  }
-}
-*/
-
