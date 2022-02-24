@@ -143,9 +143,9 @@ async function xp(message) {
       })
     
     if (result.mention === true) {
-      message.channel.send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` }) //Sends to testing server, not RA
+      client.channels.cache.get('935731982388846662').send({ content: `<@${message.author.id}> has ranked up to level ${newLevel.level}!!` })
     } else {
-      message.channel.send({ content: `${message.author.tag} has ranked up to level ${newLevel.level}!!` })
+      client.channels.cache.get('935731982388846662').send({ content: `${message.author.tag} has ranked up to level ${newLevel.level}!!` })
     }
    
   }
