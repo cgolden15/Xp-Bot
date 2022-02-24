@@ -2,12 +2,14 @@ const userSchema = require('../schemas/userSchema')
 const { MessageEmbed } = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
-  if (!message.member.roles.cache.some(r => ["League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host", "Jr. Developer", "CEO"].includes(r.name)) && !message.member.hasPermission("ADMINISTRATOR")) {
-    return message.delete(({ timeout: 3000 }));
-  }
+
   let user = client.users.cache.get(args[0]) || message.author
 
   if (args[1]) { // if theres a point value provided
+    if (!message.member.roles.cache.some(r => ["RA Executives", "League Management", "Champions League Leader", "All-Star League Leader", "Beginners League Leader", "Champion League Host", "All-Star League Host", "Beginners League Host", "Jr. Developer", "CEO"].includes(r.name))) {
+      message.reply({ content: 'You cant run that command... ' })
+      return;
+    }
     let changepoints = args[1]
 
     // set to 0 points if user doesnt have any
@@ -32,14 +34,14 @@ module.exports.run = async (client, message, args) => {
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle("League Points edited!")
-      .setDescription(`${user.tag}'s league points has been updated!'`)
+      .setDescription(`${user.tag}'s league points has been updated!`)
       .addFields(
         {
           name: `Originally`,
-          value: originalPoints.points,
+          value: `${originalPoints.points}`,
         }, {
           name: `Now:`,
-          value: newPoints.points,
+          value: `${newPoints.points}`,
         },
       )
       .setFooter('[RA] Training Academy')
