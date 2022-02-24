@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevAndromeda/discord-tutorial-bot.git"
+    "url": "git+https://github.com/cgolden15/Xp-Bot"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DevAndromeda/discord-tutorial-bot/issues"
+    "url": "https://github.com/cgolden15/Xp-Bot/issues"
   },
-  "homepage": "https://github.com/DevAndromeda/discord-tutorial-bot#readme",
+  "homepage": "https://github.com/cgolden15/Xp-Bot",
   "description": ""
 }
