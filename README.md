@@ -11,4 +11,4 @@ Needed env var's
 * discordToken 
 
 ## Credits:
-Created by: thejanator(Golden!!#8008) & MuhhMan22(MuhhMan22#6969)
+Created by: Golden!!#8008 & MuhhMan22#6969
